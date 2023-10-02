@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `apirest` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `apirest`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: apirest
@@ -31,8 +33,9 @@ CREATE TABLE `clientes` (
   `fechaNacimiento` date DEFAULT NULL,
   `correo` varchar(45) DEFAULT NULL,
   `imagen` varchar(200) DEFAULT NULL,
+  `estado` bit(1) DEFAULT b'1',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +44,9 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'78787878','Joseph Magallanes','51999999999','M','0000-00-00','joseph.magallanes@gmail.com',NULL),(2,'76767676','Jose Huernandez','51988888888','M','1965-01-01','jose.hernandez@gmail.com',NULL);
+INSERT INTO `clientes` VALUES 
+(1,'78787878','Joseph Magallanes','51999999999','M','1965-01-01','joseph.magallanes@gmail.com',NULL,_binary ''),
+(2,'76767676','Jose Huernandez','51988888888','M','1965-01-01','jose.hernandez@gmail.com',NULL,_binary '\0');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,6 +102,29 @@ LOCK TABLES `usuarios_token` WRITE;
 INSERT INTO `usuarios_token` VALUES (1,'1','f3b6c141e457ea01331b90168266b8ef',_binary '','2023-10-01 10:56:03');
 /*!40000 ALTER TABLE `usuarios_token` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'apirest'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `sp_clientes` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_clientes`()
+BEGIN
+    SELECT Id, nombre, dni, telefono, correo FROM clientes WHERE estado = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -107,4 +135,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-01 11:27:34
+-- Dump completed on 2023-10-02 18:18:49

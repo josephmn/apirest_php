@@ -1,7 +1,7 @@
 <?php
 
 require_once 'conexion/conexion.php';
-require_once 'respuestas.class.php'; 
+require_once 'respuestas.class.php';
 
 class clientes extends conexion{
 
@@ -24,8 +24,8 @@ class clientes extends conexion{
             $cantidad = $cantidad * $pagina;
         }
 
-        $query = "SELECT Id, nombre, dni, telefono, correo FROM " . $this->table . 
-                " LIMIT $inicio, $cantidad;";
+        $query = "SELECT Id, nombre, dni, telefono, correo FROM " . $this->table . " WHERE estado = 1 " .
+                "LIMIT $inicio, $cantidad;";
         $datos = parent::obtenerDatos($query);
         return $datos;
     }
