@@ -33,7 +33,7 @@ CREATE TABLE `clientes` (
   `fechaNacimiento` date DEFAULT NULL,
   `correo` varchar(45) DEFAULT NULL,
   `imagen` varchar(200) DEFAULT NULL,
-  `estado` bit(1) DEFAULT b'1',
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -45,8 +45,8 @@ CREATE TABLE `clientes` (
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
 INSERT INTO `clientes` VALUES 
-(1,'78787878','Joseph Magallanes','51999999999','M','1965-01-01','joseph.magallanes@gmail.com',NULL,_binary ''),
-(2,'76767676','Jose Huernandez','51988888888','M','1965-01-01','jose.hernandez@gmail.com',NULL,_binary '\0');
+(1,'72130767','Jose Paredes','51987654321','M','1987-10-04','jose.paredes@gmail.com',NULL,1),
+(2,'76767676','Pedro Hernandez','51951623847','M','1999-01-01','pedro.hernandez@gmail.com',NULL,0),
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +61,7 @@ CREATE TABLE `usuarios` (
   `usuarioId` int NOT NULL AUTO_INCREMENT,
   `usuario` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
-  `estado` bit(1) DEFAULT b'1',
+  `estado` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`usuarioId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -72,7 +72,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'admin@gmail.com','e10adc3949ba59abbe56e057f20f883e',_binary '');
+INSERT INTO `usuarios` VALUES (1,'admin@gmail.com','e10adc3949ba59abbe56e057f20f883e',1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +87,7 @@ CREATE TABLE `usuarios_token` (
   `tokenId` int NOT NULL AUTO_INCREMENT,
   `usuarioId` varchar(45) DEFAULT NULL,
   `token` varchar(45) DEFAULT NULL,
-  `estado` bit(1) DEFAULT b'1',
+  `estado` tinyint(1) DEFAULT '1',
   `fecha` datetime DEFAULT NULL,
   PRIMARY KEY (`tokenId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -99,7 +99,7 @@ CREATE TABLE `usuarios_token` (
 
 LOCK TABLES `usuarios_token` WRITE;
 /*!40000 ALTER TABLE `usuarios_token` DISABLE KEYS */;
-INSERT INTO `usuarios_token` VALUES (1,'1','f3b6c141e457ea01331b90168266b8ef',_binary '','2023-10-01 10:56:03');
+INSERT INTO `usuarios_token` VALUES (1,'1','f3b6c141e457ea01331b90168266b8ef',1,'2023-10-01 10:56:03');
 /*!40000 ALTER TABLE `usuarios_token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,4 +135,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-02 18:18:49
+-- Dump completed on 2023-10-21  8:33:42

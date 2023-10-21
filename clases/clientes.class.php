@@ -13,6 +13,7 @@ class clientes extends conexion{
     private $telefono = '';
     private $fechaNacimiento = '0000-00-00';
     private $correo = '';
+    private $estado = '';
     private $token = ''; // 94e375cba1fda1ff8c67c641c31f1431
     private $imagen = "";
 
@@ -24,14 +25,20 @@ class clientes extends conexion{
             $cantidad = $cantidad * $pagina;
         }
 
-        $query = "SELECT Id, nombre, dni, telefono, correo FROM " . $this->table . " WHERE estado = 1 " .
-                "LIMIT $inicio, $cantidad;";
+        $query = "SELECT Id, nombre, dni, telefono, correo FROM " . $this->table .
+                " LIMIT $inicio, $cantidad;";
         $datos = parent::obtenerDatos($query);
         return $datos;
     }
 
     public function obtenerCliente($id){
-        $query = "SELECT * FROM " . $this->table . " WHERE Id = '$id';";
+        $query = "SELECT Id, nombre, dni, telefono, genero, correo, fechaNacimiento, estado FROM " . $this->table . " WHERE Id = '$id';";
+        $datos = parent::obtenerDatos($query);
+        return $datos;
+    }
+
+    public function estadoClientes($estado){
+        $query = "SELECT Id, nombre, dni, telefono, correo FROM " . $this->table . " WHERE estado = '$estado';";
         $datos = parent::obtenerDatos($query);
         return $datos;
     }
@@ -122,6 +129,7 @@ class clientes extends conexion{
                     if (isset($datos['telefono'])) { $this->telefono = $datos['telefono']; }
                     if (isset($datos['genero'])) { $this->genero = $datos['genero']; }
                     if (isset($datos['fechaNacimiento'])) { $this->fechaNacimiento = $datos['fechaNacimiento']; }
+                    if (isset($datos['estado'])) { $this->estado = $datos['estado']; }
                     $resp = $this->modificarCliente();
                     if ($resp){
                         $respuesta = $_respuestas->response;
@@ -142,7 +150,8 @@ class clientes extends conexion{
     private function modificarCliente(){
         $query = "UPDATE " . $this->table . " SET nombre ='" . $this->nombre . "', dni = '" . $this->dni . "', telefono = '" . $this->telefono . 
                 "', genero = '" . $this->genero . "', fechaNacimiento = '" . $this->fechaNacimiento . "', correo = '" . $this->correo .
-                "' WHERE Id = '" . $this->clienteid . "'"; 
+                "', estado = $this->estado " .
+                " WHERE Id = '" . $this->clienteid . "'";
         $resp = parent::nonQuery($query);
         if ($resp >= 1){
             return $resp;

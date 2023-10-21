@@ -22,6 +22,12 @@ switch ($metodo) {
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($datosCliente);
             http_response_code(200);
+        } else if (isset($_GET['estado'])){
+            $estado = $_GET['estado'];
+            $datosCliente = $_clientes->estadoClientes($estado);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($datosCliente);
+            http_response_code(200);
         }
         break;
     case 'POST':
